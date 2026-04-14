@@ -1,4 +1,27 @@
+import {use, useEffect, UseState} from 'react'
+import {end_points} from '../services/api'
 const Login = () => {
+  const [getEmail, setEmail] = UseState("")
+  const [getPassword, setPassword] = UseState("")
+  const [getUsers, setUsers] = UseState([])
+
+function fetchUsers() {
+  fetch(end_points.users)
+   .then((response)=> response.json())
+   .then((data)=> setUsers(data))
+}
+ 
+useEffect(() => {
+  fetchUsers()
+}, [])
+
+function singIn() {
+  if(getEmail == "correo@correo.com" && getPassword == "admin") {
+    alert(getEmail + " Bienvenido")
+  } else {
+    alert("Correo o contraseña incorrectos")
+  }
+}
   return (
     <div class="flex h-full grow flex-col">
       <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 lg:px-10 py-4 bg-white dark:bg-slate-900">
