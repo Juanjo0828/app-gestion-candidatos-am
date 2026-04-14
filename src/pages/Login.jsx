@@ -1,27 +1,4 @@
-import {use, useEffect, UseState} from 'react'
-import {end_points} from '../services/api'
 const Login = () => {
-  const [getEmail, setEmail] = UseState("")
-  const [getPassword, setPassword] = UseState("")
-  const [getUsers, setUsers] = UseState([])
-
-function fetchUsers() {
-  fetch(end_points.users)
-   .then((response)=> response.json())
-   .then((data)=> setUsers(data))
-}
- 
-useEffect(() => {
-  fetchUsers()
-}, [])
-
-function singIn() {
-  if(getEmail == "correo@correo.com" && getPassword == "admin") {
-    alert(getEmail + " Bienvenido")
-  } else {
-    alert("Correo o contraseña incorrectos")
-  }
-}
   return (
     <div class="flex h-full grow flex-col">
       <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 lg:px-10 py-4 bg-white dark:bg-slate-900">
@@ -45,7 +22,7 @@ function singIn() {
             <div class="flex flex-col gap-2">
               <label class="text-slate-700 dark:text-slate-300 text-sm font-medium" for="email">Email Address</label>
               <div class="relative">
-                <input class="w-full px-4 py-3 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500" id="email" name="email" placeholder="name@company.com" required="" type="email" />
+                <input onChange={(e) => { setEmail(e.target.value) }} class="w-full px-4 py-3 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500" id="email" name="email" placeholder="name@company.com" required="" type="email" />
               </div>
             </div>
             <div class="flex flex-col gap-2">
@@ -54,7 +31,7 @@ function singIn() {
                 <a class="text-xs text-primary font-medium hover:underline" href="#">Forgot password?</a>
               </div>
               <div class="relative flex items-center">
-                <input class="w-full px-4 py-3 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500" id="password" name="password" placeholder="Enter your password" required="" type="password" />
+                <input onChange={(e) => { setPassword(e.target.value) }} class="w-full px-4 py-3 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500" id="password" name="password" placeholder="Enter your password" required="" type="password" />
                 <button class="absolute right-3 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300" type="button">
                   <span class="material-symbols-outlined text-[20px]">visibility</span>
                 </button>
@@ -64,7 +41,7 @@ function singIn() {
               <input class="w-4 h-4 text-primary border-slate-300 dark:border-slate-700 rounded focus:ring-primary/20" id="remember" type="checkbox" />
               <label class="text-sm text-slate-600 dark:text-slate-400" for="remember">Remember this device</label>
             </div>
-            <button class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-4 rounded transition-colors flex items-center justify-center gap-2" type="submit">
+            <button onClick={() => { signIn() }} class="w-full bg-primary hover:bg-primary/90 text-dark font-semibold py-3 px-4 border-black rounded flex items-center justify-center gap-2" type="button">
               Sign In
               <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </button>
