@@ -1,4 +1,37 @@
+import { useState, useEffect } from "react"
+import { redirect } from "../helpers/alerts"
+import { end_points } from "../services/api"
 const Login = () => {
+  const [getEmail, setEmail] = useState("")
+  const [getPassword, setPassword] = useState("")
+  const [getUsers, setUsers] = useState([])
+
+  function fetchUsers() {
+    fetch(end_points.users)
+      .then((response) => response.json())
+      .then((data) => setUsers(data))
+      .catch((error) => console.log(error))
+  }
+
+  useEffect(() => {
+    fetchUsers()
+  }, [])
+
+
+  const findUser = () => {
+    let user = getUsers.find((item) => getEmail === item.email && getPassword === item.password)
+    return user
+  }
+
+  function signIn() {
+    console.log(findUser())
+    if (findUser()) {
+      redirect(findUser().fullName + " Bienvenido al sistema...")
+    } else {
+      alert("El correo o la contraseña son incorrectos...")
+    }
+  }
+
   return (
     <div class="flex h-full grow flex-col">
       <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 lg:px-10 py-4 bg-white dark:bg-slate-900">
